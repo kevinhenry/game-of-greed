@@ -9,7 +9,7 @@ class Banker:
         INPUT >> Integer - amount of points to add to shelf
         OUTPUT >> No Output - adding points to shelved
         """
-        pass
+        self.shelved += points
 
     def bank(self):
         """
@@ -18,7 +18,10 @@ class Banker:
             - adding the shelved amount to balance
             - reset shelved to zero
         """
-        pass
+        temp_shelved = self.shelved 
+        self.balance += self.shelved
+        self.shelved = 0
+        return temp_shelved
 
     def clear_shelf(self):
         """
@@ -26,4 +29,4 @@ class Banker:
         OUTPUT >> NONE
             - reset the shelved to zero
         """
-        pass
+        self.shelved = 0

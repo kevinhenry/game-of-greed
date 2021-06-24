@@ -1,0 +1,80 @@
+## Game of Greed
+
+- [Pull Request](https://github.com/kevinhenry/game-of-greed/pull/1)
+
+---
+
+### We are deployed on:
+
+[https://github.com/kevinhenry/game-of-greed]
+
+---
+
+## Web Application
+
+This app is a command line version of the dice game Game of Greed.  To expand understanding of Python standard library.
+
+---
+
+## Tools Used
+
+VS Code
+
+- Python
+- Pytest
+- Poetry
+- PyEnv
+
+---
+
+## Recent Updates
+
+---
+
+## Getting Started
+
+Clone this repository to your local machine.
+
+```
+$ git clone https://github.com/kevinhenry/game-of-greed.git
+```
+Once downloaded, activate your virtual environment and run by poetry install
+```
+cd YourRepo/YourProject
+python xxx.py
+```
+The poetry tools will automatically install any dependencies. Before running the application, setup your DB by doing ________
+```
+Update-Database
+```
+Once the database has been created, the application can be run. Options for running and debugging the application using can be found via your coding tools of ___________. From the command line, the following will start an instance of the Postgresql server to host the application:
+```
+cd YourRepo/YourProject
+dotnet run
+```
+Unit testing is included in the __________________ project using the pytest test framework. Tests have been provided for models, view models, controllers, and utility classes for the application.
+
+---
+
+## Change Log
+
+1.1 *Initial setup. Worked on psudocode* - 22 Jun 2021
+6/23: *Worked on Shelving money, scoring roles, calculating score* - 23 Jun 2021
+
+---
+
+## Authors
+
+Davee Sok
+Kevin Henry
+Marie Marcos
+
+---
+
+## Resources
+
+[StackOverflow](https://codereview.stackexchange.com/questions/75160/python-greed-roll)
+
+[Real Phyton](https://realpython.com/iterate-through-dictionary-python/)
+
+[Python.org](https://docs.python.org/3/library/collections.html#collections.Counter)

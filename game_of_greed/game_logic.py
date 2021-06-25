@@ -16,20 +16,19 @@ class GameLogic:
         OUTPUT >>  Integer - score based on the collection of dice
 
         """
-        count = Counter(tuple)
+        counts = Counter(tuple)
 
         # Straights
-        if len(count) == 6:
+        if len(counts) == 6:
             return 1500
 
-        # Pairs
-        if len(count) == 3:
-            if all(value == 2 for value in count.values()):
+        # 3 Pairs
+        if len(counts) == 3:
+            if all(value == 2 for value in counts.values()):
                 return 1500
 
         result = 0
 
-        counts = Counter(tuple)
         for number, count in counts.items():
             if count < 3:
                 result += count * DIE_POINTS.get(number, 0)

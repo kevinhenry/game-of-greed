@@ -12,7 +12,7 @@
 
 ## Web Application
 
-This app is a command line version of the dice game Game of Greed.  To expand understanding of Python standard library.
+This app is a command line version of the dice game Game of Greed. To expand understanding of Python standard library.
 
 ---
 
@@ -38,28 +38,35 @@ Clone this repository to your local machine.
 ```
 $ git clone https://github.com/kevinhenry/game-of-greed.git
 ```
+
 Once downloaded, activate your virtual environment and run by poetry install
+
 ```
 cd YourRepo/YourProject
 python xxx.py
 ```
-The poetry tools will automatically install any dependencies. Before running the application, setup your DB by doing ________
+
+The poetry tools will automatically install any dependencies. Before running the application, setup your DB by doing **\_\_\_\_**
+
 ```
 Update-Database
 ```
-Once the database has been created, the application can be run. Options for running and debugging the application using can be found via your coding tools of ___________. From the command line, the following will start an instance of the Postgresql server to host the application:
+
+Once the database has been created, the application can be run. Options for running and debugging the application using can be found via your coding tools of ****\_\_\_****. From the command line, the following will start an instance of the Postgresql server to host the application:
+
 ```
 cd YourRepo/YourProject
 dotnet run
 ```
-Unit testing is included in the __________________ project using the pytest test framework. Tests have been provided for models, view models, controllers, and utility classes for the application.
+
+Unit testing is included in the ********\_\_******** project using the pytest test framework. Tests have been provided for models, view models, controllers, and utility classes for the application.
 
 ---
 
 ## Change Log
 
-1.1 *Initial setup. Worked on psudocode* - 22 Jun 2021
-6/23: *Worked on Shelving money, scoring roles, calculating score* - 23 Jun 2021
+1.1 _Initial setup. Worked on psudocode_ - 22 Jun 2021
+6/23: _Worked on Shelving money, scoring roles, calculating score_ - 23 Jun 2021
 
 ---
 

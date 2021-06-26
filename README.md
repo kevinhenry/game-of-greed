@@ -1,6 +1,7 @@
 ## Game of Greed
 
 - [Pull Request](https://github.com/kevinhenry/game-of-greed/pull/1)
+- [Pull Request 2](https://github.com/kevinhenry/game-of-greed/pull/2)
 
 ---
 
@@ -52,14 +53,14 @@ The poetry tools will automatically install any dependencies. Before running the
 Update-Database
 ```
 
-Once the database has been created, the application can be run. Options for running and debugging the application using can be found via your coding tools of ****\_\_\_****. From the command line, the following will start an instance of the Postgresql server to host the application:
+Once the database has been created, the application can be run. Options for running and debugging the application using can be found via your coding tools of \***\*\_\_\_\*\***. From the command line, the following will start an instance of the Postgresql server to host the application:
 
 ```
 cd YourRepo/YourProject
 dotnet run
 ```
 
-Unit testing is included in the ********\_\_******** project using the pytest test framework. Tests have been provided for models, view models, controllers, and utility classes for the application.
+Unit testing is included in the **\*\*\*\***\_\_**\*\*\*\*** project using the pytest test framework. Tests have been provided for models, view models, controllers, and utility classes for the application.
 
 ---
 

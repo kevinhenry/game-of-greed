@@ -14,6 +14,12 @@ def split(string):
     return [char for char in string]
 
 
+def convert_string_to_score(string):
+    num_string_list = split(string)
+    users_dice_picks = tuple([int(val) for val in num_string_list])
+    return GameLogic.calculate_score(users_dice_picks)
+
+
 class Game:
     def __init__(self):
         self.round = 1
@@ -26,16 +32,14 @@ class Game:
 
     def display_roll_dice(self, roller):
         print(f"Rolling {self.remaining_dice} dice...")
-        new_dice = dice_to_string(roller(self.remaining_dice))
-        print(new_dice)
+        new_dice_string = dice_to_string(roller(self.remaining_dice))
+        print(new_dice_string)
 
     def shelf_the_score(self, users_pick):
-        num_string_list = split(users_pick)
-        users_dice_picks = tuple([int(val) for val in num_string_list])
-        score = GameLogic.calculate_score(users_dice_picks)
+        score = convert_string_to_score(users_pick)
         self.bank.shelf(score)
-        self.remaining_dice -= len(users_dice_picks)
-        print(f"You have {score} unbanked points and {self.remaining_dice} dice remaining")
+        self.remaining_dice -= len(users_pick)
+        print(f"You have {self.bank.shelved} unbanked points and {self.remaining_dice} dice remaining")
 
     def bank_the_score(self):
         banked = self.bank.bank()
@@ -62,6 +66,7 @@ class Game:
             while same_round:
 
                 self.display_roll_dice(roller)
+
                 print("Enter dice to keep, or (q)uit:")
                 user_answer = input("> ")
 
@@ -78,7 +83,7 @@ class Game:
 
                     if ask_again == "r":
                         # we want to keep rolling
-                        pass
+                        continue
 
                     elif ask_again == "b":
                         self.bank_the_score()
@@ -87,6 +92,9 @@ class Game:
                     elif ask_again == "q":
                         print(f"Thanks for playing. You earned {self.bank.balance} points")
                         return
+
+                    else:
+                        print("Please pick (r)oll again, (b)ank your points or (q)uit")
 
 
 if __name__ == "__main__":

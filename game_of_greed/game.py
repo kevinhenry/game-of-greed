@@ -20,7 +20,7 @@ class Game:
 
     def play(self, roller):
         bank = Banker()
-        self.roller = roller or GameLogic.roll_dice  # testing
+        self.roller = roller or GameLogic.roll_dice  # Not sure why it needs this?
 
         print("Welcome to Game of Greed")
         print("(y)es to play or (n)o to decline")
@@ -48,7 +48,7 @@ class Game:
 
                 elif user_answer == "b":
                     to_bank = bank.bank()
-                    print(f"You banked {to_bank} in round {self.round}")
+                    print(f"You banked {to_bank} points in round {self.round}")
                     print(f"Total score is {bank.balance} points")
                     self.round += 1
 
@@ -75,7 +75,7 @@ class Game:
 
                     elif ask_again == "b":
                         to_bank = bank.bank()
-                        print(f"You banked {to_bank} in round {self.round}")
+                        print(f"You banked {to_bank} points in round {self.round}")
                         print(f"Total score is {bank.balance} points")
                         self.round += 1
                         self.remaining_dice = 6

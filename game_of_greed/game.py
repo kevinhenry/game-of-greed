@@ -1,18 +1,6 @@
 from game_of_greed.game_logic import GameLogic
 from game_of_greed.banker import Banker
-
-
-def dice_to_string(tuple):
-    string = "*** "
-    for dice in tuple:
-        string += f"{dice} "
-    string += "***"
-    return string
-
-
-def string_to_list(string):
-    num_string_list = [char for char in string]
-    return [int(val) for val in num_string_list]
+from helper_functions.helpers import dice_to_string, string_to_list
 
 
 class Game:
@@ -73,10 +61,8 @@ class Game:
                         return
 
                     self.saved_dice += string_to_list(user_answer)
-                    # print(f"self.saved_dice : {self.sa}")
-                    current_score = GameLogic.calculate_score(tuple(self.saved_dice))
-
                     self.remaining_dice = 6 - len(self.saved_dice)
+                    current_score = GameLogic.calculate_score(tuple(self.saved_dice))
                     self.shelf_the_score(current_score)
 
                     ask_again = input("(r)oll again, (b)ank your points or (q)uit:\n> ")

@@ -10,43 +10,41 @@ def dice_to_string(tuple):
     return string
 
 
-def split(string):
-    return [char for char in string]
-
-
-def convert_string_to_score(string):
-    num_string_list = split(string)
-    users_dice_picks = tuple([int(val) for val in num_string_list])
-    return GameLogic.calculate_score(users_dice_picks)
+def string_to_list(string):
+    num_string_list = [char for char in string]
+    return [int(val) for val in num_string_list]
 
 
 class Game:
     def __init__(self):
         self.round = 1
-        self.remaining_dice = 6
         self.bank = Banker()
+        self.saved_dice = []
+        self.remaining_dice = 6
 
     def print_welcome_message(self):
         print("Welcome to Game of Greed")
         print("(y)es to play or (n)o to decline")
 
-    def display_roll_dice(self, roller):
+    def display_new_roll(self, roller):
         print(f"Rolling {self.remaining_dice} dice...")
         new_dice_string = dice_to_string(roller(self.remaining_dice))
         print(new_dice_string)
 
-    def shelf_the_score(self, users_pick):
-        score = convert_string_to_score(users_pick)
-        self.bank.shelf(score)
-        self.remaining_dice -= len(users_pick)
+    def shelf_the_score(self, score):
+        self.bank.shelved = score
         print(f"You have {self.bank.shelved} unbanked points and {self.remaining_dice} dice remaining")
 
     def bank_the_score(self):
         banked = self.bank.bank()
         print(f"You banked {banked} points in round {self.round}")
         print(f"Total score is {self.bank.balance} points")
+
+    def start_new_round(self):
+        self.bank_the_score()
         self.round += 1
         self.remaining_dice = 6
+        self.saved_dice = []
 
     def play(self, roller=GameLogic.roll_dice):
 
@@ -65,36 +63,38 @@ class Game:
             same_round = True
             while same_round:
 
-                self.display_roll_dice(roller)
+                self.display_new_roll(roller)
+                user_answer = input("Enter dice to keep, or (q)uit:\n> ")
 
-                print("Enter dice to keep, or (q)uit:")
-                user_answer = input("> ")
+                try:
 
-                if user_answer == "q":
-                    print(f"Thanks for playing. You earned {self.bank.balance} points")
-                    return
+                    if user_answer == "q":
+                        print(f"Thanks for playing. You earned {self.bank.balance} points")
+                        return
 
-                elif int(user_answer):
+                    self.saved_dice += string_to_list(user_answer)
+                    # print(f"self.saved_dice : {self.sa}")
+                    current_score = GameLogic.calculate_score(tuple(self.saved_dice))
 
-                    self.shelf_the_score(user_answer)
+                    self.remaining_dice = 6 - len(self.saved_dice)
+                    self.shelf_the_score(current_score)
 
-                    print("(r)oll again, (b)ank your points or (q)uit:")
-                    ask_again = input("> ")
+                    ask_again = input("(r)oll again, (b)ank your points or (q)uit:\n> ")
 
                     if ask_again == "r":
-                        # we want to keep rolling
                         continue
 
                     elif ask_again == "b":
-                        self.bank_the_score()
+                        self.start_new_round()
                         same_round = False
 
                     elif ask_again == "q":
                         print(f"Thanks for playing. You earned {self.bank.balance} points")
                         return
 
-                    else:
-                        print("Please pick (r)oll again, (b)ank your points or (q)uit")
+                except ValueError as error:
+                    print(" ** --------- Error: Please check your entry --------- **")
+                    print("Your options are (r)oll again, (b)ank your points or (q)uit")
 
 
 if __name__ == "__main__":

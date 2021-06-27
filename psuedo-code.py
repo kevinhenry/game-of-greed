@@ -14,9 +14,8 @@ ask_user for their input
     if user answer is yes
         declare running = true
         while running is true:
-            print
-            Starting round {self.round}
-            Rolling {self.remaining_dice} dice...
+            print - Starting round {self.round}
+            print - Rolling {self.remaining_dice} dice...
 
                 
 

@@ -52,8 +52,7 @@ class GameLogic:
         dice_list = []
         for dice in range(num_dice):
             dice_list.append(random.randint(1, 6))
-        # return tuple(dice_list)
-        return dice_list  # check this later
+        return tuple(dice_list)
 
 
 if __name__ == "__main__":

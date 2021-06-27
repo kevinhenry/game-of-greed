@@ -79,6 +79,10 @@ Marie Marcos
 
 ---
 
+## Colloborators
+
+Anthony Beaver (helped with playgame function)
+
 ## Resources
 
 [StackOverflow](https://codereview.stackexchange.com/questions/75160/python-greed-roll)

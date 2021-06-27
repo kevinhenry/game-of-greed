@@ -3,12 +3,14 @@ from game_of_greed.banker import Banker
 
 
 def print_dice(tuple):
-    print(tuple)
-    string = ""
+    string = " "
     for dice in tuple:
-        string += f" {dice}"
-    string += " "
+        string += f"{dice} "
     return string
+
+
+def split(string):
+    return [char for char in string]
 
 
 class Game:
@@ -18,6 +20,8 @@ class Game:
 
     def play(self, roller):
         bank = Banker()
+        self.roller = roller or GameLogic.roll_dice  # testing
+
         print("Welcome to Game of Greed")
         print("(y)es to play or (n)o to decline")
         ask_user = input("> ")
@@ -25,14 +29,15 @@ class Game:
         if ask_user == "n" or ask_user == "no":
             print("OK. Maybe another time")
         else:
-            running = True  # Possibly change to count rounds
+            running = True
             while running:
+
                 print(f"Starting round {self.round}")
                 print("Rolling 6 dice...")
-                dice = roller or GameLogic.roll_dice(self.remaining_dice)
+                dice = self.roller(self.remaining_dice)
+                # dice = GameLogic.roll_dice(self.remaining_dice)
                 converted = print_dice(dice)
-                # print("*** 4 2 6 4 6 5 ***")
-                print("***{converted}***")
+                print(f"***{converted}***")
 
                 print("Enter dice to keep, or (q)uit:")
                 user_answer = input("> ")
@@ -41,14 +46,59 @@ class Game:
                     running = False
                     print(f"Thanks for playing. You earned {bank.balance} points")
 
-                # elif :
+                elif user_answer == "b":
+                    to_bank = bank.bank()
+                    print(f"You banked {to_bank} in round {self.round}")
+                    print(f"Total score is {bank.balance} points")
+                    self.round += 1
+
+                elif int(user_answer):
+
+                    split_numbers = split(user_answer)
+                    converted = [int(val) for val in split_numbers]
+                    converted_tuple = tuple(converted)
+
+                    score = GameLogic.calculate_score(converted_tuple)
+                    bank.shelf(score)
+                    self.remaining_dice -= len(converted)
+
+                    print(f"You have {score} unbanked points and {self.remaining_dice} dice remaining")
+                    print("(r)oll again, (b)ank your points or (q)uit:")
+
+                    ask_again = input("> ")
+
+                    if ask_again == "r":
+                        # we want to keep rolling
+                        # print Rollling {remaining dice} dice...
+                        #
+                        pass
+
+                    elif ask_again == "b":
+                        to_bank = bank.bank()
+                        print(f"You banked {to_bank} in round {self.round}")
+                        print(f"Total score is {bank.balance} points")
+                        self.round += 1
+                        self.remaining_dice = 6
+                    elif ask_again == "q":
+                        running = False
+                        print(f"Thanks for playing. You earned {bank.balance} points")
 
 
 if __name__ == "__main__":
 
-    new_game = Game()
-    new_game.play()
+    # test1 = "1234"
+    # print(test1)
 
+    # split_list = split(test1)
+    # print(split_list)
+
+    # converted = [int(val) for val in split_list]
+
+    # print(converted)
+    # test2 = int("abc")
+    # print(test1)
+    game = Game()
+    game.play(GameLogic.roll_dice)
 
 """
           Print Welcome Message

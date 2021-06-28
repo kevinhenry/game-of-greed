@@ -9,6 +9,7 @@ class Game:
         self.bank = Banker()
         self.saved_dice = []
         self.remaining_dice = 6
+        self.current_dice_options = []
 
     def print_welcome_message(self):
         print("Welcome to Game of Greed")
@@ -16,7 +17,8 @@ class Game:
 
     def display_new_roll(self, roller):
         print(f"Rolling {self.remaining_dice} dice...")
-        new_dice_string = dice_to_string(roller(self.remaining_dice))
+        self.current_dice_options = roller(self.remaining_dice)
+        new_dice_string = dice_to_string(self.current_dice_options)
         print(new_dice_string)
 
     def shelf_the_score(self, score):
@@ -33,11 +35,14 @@ class Game:
         self.round += 1
         self.remaining_dice = 6
         self.saved_dice = []
+        self.current_dice_options = []
 
     def play(self, roller=GameLogic.roll_dice):
 
         self.print_welcome_message()
 
+        # need to account for other user options that will break this portion
+        # maybe add a while loop to keep asking until valid response then move forward
         ask_user_to_play = input("> ")
         if ask_user_to_play == "n" or ask_user_to_play == "no":
             print("OK. Maybe another time")
@@ -52,9 +57,14 @@ class Game:
             while same_round:
 
                 self.display_new_roll(roller)
-                user_answer = input("Enter dice to keep, or (q)uit:\n> ")
 
                 try:
+
+                    # need to account for the following cases
+                    #  - validate that user picks dices from the dice rolled options
+                    #       - currently the user is allowed to pick any options
+                    #  - account for cases where the user enters letters that arent options
+                    user_answer = input("Enter dice to keep, or (q)uit:\n> ")
 
                     if user_answer == "q":
                         print(f"Thanks for playing. You earned {self.bank.balance} points")

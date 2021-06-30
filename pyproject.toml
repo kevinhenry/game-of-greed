@@ -7,6 +7,7 @@ authors = ["Kevin Henry <kevinhenry@mac.com>"]
 [tool.poetry.dependencies]
 python = "^3.9"
 black = "^21.6b0"
+pytest-watch = "^4.2.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

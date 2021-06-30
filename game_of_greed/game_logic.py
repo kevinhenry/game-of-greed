@@ -56,8 +56,8 @@ class GameLogic:
 
 
 if __name__ == "__main__":
-
-    input1 = (1, 1, 1, 1, 1, 1)
+    pass
+    # input1 = (1, 1, 1, 1, 1, 1)
     # result1 = Counter(input1)
-    result = GameLogic.calculate_score(input1)
-    print(result)
+    # result = GameLogic.calculate_score(input1)
+    # print(result)

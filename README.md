@@ -1,7 +1,8 @@
 ## Game of Greed
 
-- [Pull Request](https://github.com/kevinhenry/game-of-greed/pull/1)
-- [Pull Request 2](https://github.com/kevinhenry/game-of-greed/pull/2)
+- [Pull Request - Lab 6](https://github.com/kevinhenry/game-of-greed/pull/1)
+- [Pull Request - Lab 7](https://github.com/kevinhenry/game-of-greed/pull/2)
+- [Pull Request - Lab 8](https://github.com/kevinhenry/game-of-greed/pull/4)
 
 ---
 

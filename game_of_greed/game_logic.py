@@ -61,7 +61,15 @@ class GameLogic:
                  - Tuple - The users choice
         OUTPUT >>  Boolean - True/False if user picked from the actual list
         """
-        pass
+        count1 = Counter(roll)
+        count2 = Counter(keepers)
+
+        for number, count in count2.items():
+            if number not in count1:
+                return False
+            elif count > count1[number]:
+                return False
+        return True
 
     @staticmethod
     def get_scorers(test_input):

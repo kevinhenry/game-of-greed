@@ -9,7 +9,7 @@ class Game:
         self.bank = Banker()
         self.saved_dice = []
         self.remaining_dice = 6
-        self.current_dice_options = []
+        self.current_dice_options = ()
 
     def print_welcome_message(self):
         print("Welcome to Game of Greed")
@@ -30,12 +30,16 @@ class Game:
         print(f"You banked {banked} points in round {self.round}")
         print(f"Total score is {self.bank.balance} points")
 
-    def start_new_round(self):
+    def prepare_new_round(self):
         self.bank_the_score()
         self.round += 1
         self.remaining_dice = 6
         self.saved_dice = []
         self.current_dice_options = []
+
+    def zilch(self):
+
+        pass
 
     def play(self, roller=GameLogic.roll_dice):
 
@@ -57,13 +61,14 @@ class Game:
             while same_round:
 
                 self.display_new_roll(roller)
+                # check if score is zilch
+                # if it is
+                # print zilch message
+                #
 
                 try:
 
-                    # need to account for the following cases
-                    #  - validate that user picks dices from the dice rolled options
-                    #       - currently the user is allowed to pick any options
-                    #  - account for cases where the user enters letters that arent options
+                    #
                     user_answer = input("Enter dice to keep, or (q)uit:\n> ")
 
                     if user_answer == "q":
@@ -81,7 +86,7 @@ class Game:
                         continue
 
                     elif ask_again == "b":
-                        self.start_new_round()
+                        self.prepare_new_round()
                         same_round = False
 
                     elif ask_again == "q":

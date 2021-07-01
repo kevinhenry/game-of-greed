@@ -1,7 +1,7 @@
 import pytest
 from game_of_greed.game_logic import GameLogic
 
-pytestmark = [pytest.mark.version_3]
+# pytestmark = [pytest.mark.version_3]
 
 
 @pytest.mark.parametrize(

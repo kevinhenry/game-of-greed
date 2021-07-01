@@ -41,8 +41,8 @@ class Game:
 
     def print_cheater(self):
         print("Cheater!!! Or possibly made a typo...")
-        new_dice_string = dice_to_string(self.current_dice_options)
-        print(new_dice_string)
+        dice_string = dice_to_string(self.current_dice_options)
+        print(dice_string)
 
     def zilch(self):
         pass
@@ -55,8 +55,6 @@ class Game:
 
         self.print_welcome_message()
 
-        # need to account for other user options that will break this portion
-        # maybe add a while loop to keep asking until valid response then move forward
         ask_user_to_play = input("> ")
         if ask_user_to_play == "n" or ask_user_to_play == "no":
             print("OK. Maybe another time")
@@ -72,43 +70,28 @@ class Game:
 
                 self.display_new_roll(roller)
 
-                keep_asking = True
-                while keep_asking == True:
+                valid_pick = False
+                while valid_pick == False:
 
                     try:
 
                         user_answer = input("Enter dice to keep, or (q)uit:\n> ")
                         user_answer = user_answer.replace(" ", "")
-
                         if user_answer == "q":
                             self.quit_game()
 
-                        # print(f"user_answer line 81: {user_answer}")
-                        string_version = string_to_list(user_answer)
-                        # print("this should run twice")
-                        # print(f"string_versions line 84: {string_version}")
+                        users_dice_picks = string_to_list(user_answer)
+
                     except ValueError as error:
-                        # print("line 86 got trigggered")
                         self.print_cheater()
 
-                    # print("this needs to run twice line 89")
-
-                    result = GameLogic.validate_keepers(self.current_dice_options, string_version)
-                    # print(f"result from line 94: {result}")
-
-                    if result == True:
-                        # print(f"string_versions line 88: {string_version}")
+                    if GameLogic.validate_keepers(self.current_dice_options, users_dice_picks):
                         self.saved_dice += string_to_list(user_answer)
-                        keep_asking = False
-                        # print("this is from line 95")
+                        valid_pick = True
                     else:
-                        # print(f"string_versions line 97: {string_version}")
                         self.print_cheater()
-
-                    # print("does it get to here? line 100")
 
                 self.remaining_dice = 6 - len(self.saved_dice)
-
                 current_score = GameLogic.calculate_score(tuple(self.saved_dice))
                 self.shelf_the_score(current_score)
 
@@ -127,7 +110,6 @@ class Game:
 
 if __name__ == "__main__":
 
-    # print(GameLogic.validate_keepers((5, 2, 3, 5, 4, 2), (5, 5)))
     try:
         game = Game()
         game.play()

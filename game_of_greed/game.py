@@ -48,7 +48,8 @@ class Game:
         pass
 
     def quit_game(self):
-        sys.exit(f"Thanks for playing. You earned {self.bank.balance} points")
+        print(f"Thanks for playing. You earned {self.bank.balance} points")
+        sys.exit("Exiting")
 
     def play(self, roller=GameLogic.roll_dice):
 
@@ -82,31 +83,29 @@ class Game:
                         if user_answer == "q":
                             self.quit_game()
 
-                        print(f"user_answer line 81: {user_answer}")
+                        # print(f"user_answer line 81: {user_answer}")
                         string_version = string_to_list(user_answer)
                         # print("this should run twice")
-                        print(f"string_versions line 84: {string_version}")
+                        # print(f"string_versions line 84: {string_version}")
                     except ValueError as error:
-                        print("line 86 got trigggered")
+                        # print("line 86 got trigggered")
                         self.print_cheater()
 
-                    print("this needs to run twice line 89")
+                    # print("this needs to run twice line 89")
 
-                    result = GameLogic.validate_keepers(
-                        roller(self.remaining_dice) or self.current_dice_options, string_version
-                    )
-                    print(f"result from line 94: {result}")
+                    result = GameLogic.validate_keepers(self.current_dice_options, string_version)
+                    # print(f"result from line 94: {result}")
 
                     if result == True:
                         # print(f"string_versions line 88: {string_version}")
                         self.saved_dice += string_to_list(user_answer)
                         keep_asking = False
-                        print("this is from line 95")
+                        # print("this is from line 95")
                     else:
-                        print(f"string_versions line 97: {string_version}")
+                        # print(f"string_versions line 97: {string_version}")
                         self.print_cheater()
 
-                    print("does it get to here? line 100")
+                    # print("does it get to here? line 100")
 
                 self.remaining_dice = 6 - len(self.saved_dice)
 

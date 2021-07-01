@@ -6,10 +6,10 @@ from game_of_greed.game import Game
 # pytestmark = [pytest.mark.version_3]
 
 
-# def test_repeat_roller():
-#     """Allow setting aside scoring dice and rolling the rest"""
-#     diffs = diff(Game().play, path="tests/version_3/repeat_roller.sim.txt")
-#     assert not diffs, diffs
+def test_repeat_roller():
+    """Allow setting aside scoring dice and rolling the rest"""
+    diffs = diff(Game().play, path="tests/version_3/repeat_roller.sim.txt")
+    assert not diffs, diffs
 
 
 # def test_hot_dice():

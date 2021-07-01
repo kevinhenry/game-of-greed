@@ -1,3 +1,5 @@
+import sys
+
 from game_of_greed.game_logic import GameLogic
 from game_of_greed.banker import Banker
 from helper_functions.helpers import dice_to_string, string_to_list
@@ -9,7 +11,7 @@ class Game:
         self.bank = Banker()
         self.saved_dice = []
         self.remaining_dice = 6
-        self.current_dice_options = ()
+        self.current_dice_options = []
 
     def print_welcome_message(self):
         print("Welcome to Game of Greed")
@@ -37,9 +39,16 @@ class Game:
         self.saved_dice = []
         self.current_dice_options = []
 
-    def zilch(self):
+    def print_cheater(self):
+        print("Cheater!!! Or possibly made a typo...")
+        new_dice_string = dice_to_string(self.current_dice_options)
+        print(new_dice_string)
 
+    def zilch(self):
         pass
+
+    def quit_game(self):
+        sys.exit(f"Thanks for playing. You earned {self.bank.balance} points")
 
     def play(self, roller=GameLogic.roll_dice):
 
@@ -61,44 +70,67 @@ class Game:
             while same_round:
 
                 self.display_new_roll(roller)
-                # check if score is zilch
-                # if it is
-                # print zilch message
-                #
 
-                try:
+                keep_asking = True
+                while keep_asking == True:
 
-                    #
-                    user_answer = input("Enter dice to keep, or (q)uit:\n> ")
+                    try:
 
-                    if user_answer == "q":
-                        print(f"Thanks for playing. You earned {self.bank.balance} points")
-                        return
+                        user_answer = input("Enter dice to keep, or (q)uit:\n> ")
+                        user_answer = user_answer.replace(" ", "")
 
-                    self.saved_dice += string_to_list(user_answer)
-                    self.remaining_dice = 6 - len(self.saved_dice)
-                    current_score = GameLogic.calculate_score(tuple(self.saved_dice))
-                    self.shelf_the_score(current_score)
+                        if user_answer == "q":
+                            self.quit_game()
 
-                    ask_again = input("(r)oll again, (b)ank your points or (q)uit:\n> ")
+                        print(f"user_answer line 81: {user_answer}")
+                        string_version = string_to_list(user_answer)
+                        # print("this should run twice")
+                        print(f"string_versions line 84: {string_version}")
+                    except ValueError as error:
+                        print("line 86 got trigggered")
+                        self.print_cheater()
 
-                    if ask_again == "r":
-                        continue
+                    print("this needs to run twice line 89")
 
-                    elif ask_again == "b":
-                        self.prepare_new_round()
-                        same_round = False
+                    result = GameLogic.validate_keepers(
+                        roller(self.remaining_dice) or self.current_dice_options, string_version
+                    )
+                    print(f"result from line 94: {result}")
 
-                    elif ask_again == "q":
-                        print(f"Thanks for playing. You earned {self.bank.balance} points")
-                        return
+                    if result == True:
+                        # print(f"string_versions line 88: {string_version}")
+                        self.saved_dice += string_to_list(user_answer)
+                        keep_asking = False
+                        print("this is from line 95")
+                    else:
+                        print(f"string_versions line 97: {string_version}")
+                        self.print_cheater()
 
-                except ValueError as error:
-                    print(" ** --------- Error: Please check your entry --------- **")
-                    print("Your options are (r)oll again, (b)ank your points or (q)uit")
+                    print("does it get to here? line 100")
+
+                self.remaining_dice = 6 - len(self.saved_dice)
+
+                current_score = GameLogic.calculate_score(tuple(self.saved_dice))
+                self.shelf_the_score(current_score)
+
+                ask_again = input("(r)oll again, (b)ank your points or (q)uit:\n> ")
+
+                if ask_again == "r":
+                    continue
+
+                elif ask_again == "b":
+                    self.prepare_new_round()
+                    same_round = False
+
+                elif ask_again == "q":
+                    self.quit_game()
 
 
 if __name__ == "__main__":
 
-    game = Game()
-    game.play()
+    # print(GameLogic.validate_keepers((5, 2, 3, 5, 4, 2), (5, 5)))
+    try:
+        game = Game()
+        game.play()
+    except KeyboardInterrupt:
+        game.quit_game()

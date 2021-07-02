@@ -24,7 +24,7 @@ class Game:
         print(new_dice_string)
 
     def shelf_the_score(self, score):
-        self.bank.shelved = score
+        self.bank.shelf(score)
         print(f"You have {self.bank.shelved} unbanked points and {self.remaining_dice} dice remaining")
 
     def bank_the_score(self):
@@ -86,7 +86,6 @@ class Game:
 
                         user_answer = input("Enter dice to keep, or (q)uit:\n> ")
                         user_answer = user_answer.replace(" ", "")
-                        print(f"self.shelved from line 89 {self.bank.shelved}")
                         if user_answer == "q":
                             self.quit_game()
 
@@ -96,21 +95,21 @@ class Game:
                         self.print_cheater()
 
                     if GameLogic.validate_keepers(self.current_dice_options, users_dice_picks):
-                        self.saved_dice += string_to_list(user_answer)
+                        self.saved_dice += users_dice_picks
                         valid_pick = True
                     else:
                         self.print_cheater()
 
                 self.remaining_dice = 6 - len(self.saved_dice)
-                current_score = GameLogic.calculate_score(tuple(self.saved_dice))
-                print(f"current_score line 105: {current_score}")
-                self.shelf_the_score(current_score)
-                print(f"self.shelved from line 107 {self.bank.shelved}")
+                current_score = GameLogic.calculate_score(tuple(users_dice_picks))
 
                 if self.remaining_dice == 0:
+                    self.shelf_the_score(current_score)
                     self.saved_dice = []
                     self.remaining_dice = 6
                     self.current_dice_options = []
+                else:
+                    self.shelf_the_score(current_score)
 
                 ask_again = input("(r)oll again, (b)ank your points or (q)uit:\n> ")
 

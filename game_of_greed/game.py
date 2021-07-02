@@ -9,7 +9,6 @@ class Game:
     def __init__(self):
         self.round = 1
         self.bank = Banker()
-        self.saved_dice = []
         self.remaining_dice = 6
         self.current_dice_options = []
 
@@ -36,7 +35,6 @@ class Game:
         self.bank_the_score()
         self.round += 1
         self.remaining_dice = 6
-        self.saved_dice = []
         self.current_dice_options = []
 
     def print_cheater(self):
@@ -88,24 +86,20 @@ class Game:
                         user_answer = user_answer.replace(" ", "")
                         if user_answer == "q":
                             self.quit_game()
-
                         users_dice_picks = string_to_list(user_answer)
 
                     except ValueError as error:
                         self.print_cheater()
 
                     if GameLogic.validate_keepers(self.current_dice_options, users_dice_picks):
-                        self.saved_dice += users_dice_picks
+                        self.remaining_dice -= len(users_dice_picks)
+                        current_score = GameLogic.calculate_score(tuple(users_dice_picks))
                         valid_pick = True
                     else:
                         self.print_cheater()
 
-                self.remaining_dice = 6 - len(self.saved_dice)
-                current_score = GameLogic.calculate_score(tuple(users_dice_picks))
-
                 if self.remaining_dice == 0:
                     self.shelf_the_score(current_score)
-                    self.saved_dice = []
                     self.remaining_dice = 6
                     self.current_dice_options = []
                 else:

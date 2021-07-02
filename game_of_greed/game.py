@@ -45,7 +45,11 @@ class Game:
         print(dice_string)
 
     def zilch(self):
-        pass
+        print("****************************************")
+        print("**        Zilch!!! Round over         **")
+        print("****************************************")
+        self.bank.clear_shelf()
+        self.prepare_new_round()
 
     def quit_game(self):
         print(f"Thanks for playing. You earned {self.bank.balance} points")
@@ -69,6 +73,11 @@ class Game:
             while same_round:
 
                 self.display_new_roll(roller)
+
+                if len(GameLogic.get_scorers(self.current_dice_options)) == 0:
+                    self.zilch()
+                    same_round = False
+                    continue
 
                 valid_pick = False
                 while valid_pick == False:

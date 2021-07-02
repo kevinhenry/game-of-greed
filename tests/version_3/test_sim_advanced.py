@@ -30,12 +30,12 @@ def test_cheat_and_fix():
     assert not diffs, diffs
 
 
-# def test_zilcher():
-#     """
-#     No scoring dice results in a 'zilch'
-#     which wipes away shelved points
-#     and ends turn
-#     """
+def test_zilcher():
+    """
+    No scoring dice results in a 'zilch'
+    which wipes away shelved points
+    and ends turn
+    """
 
-#     diffs = diff(Game().play, path="tests/version_3/zilcher.sim.txt")
-#     assert not diffs, diffs
+    diffs = diff(Game().play, path="tests/version_3/zilcher.sim.txt")
+    assert not diffs, diffs

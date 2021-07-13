@@ -54,6 +54,50 @@ class GameLogic:
             dice_list.append(random.randint(1, 6))
         return tuple(dice_list)
 
+    @staticmethod
+    def validate_keepers(roll, keepers):
+        """
+        INPUT >> - Tuple - the actual list of dices
+                 - Tuple - The users choice
+        OUTPUT >>  Boolean - True/False if user picked from the actual list
+        """
+        count1 = Counter(roll)
+        count2 = Counter(keepers)
+
+        for number, count in count2.items():
+            if number not in count1:
+                return False
+            elif count > count1[number]:
+                return False
+        return True
+
+    @staticmethod
+    def get_scorers(test_input):
+        """
+        INPUT >> Tuple - The dice list that was rolled
+        OUPUT >> Tuple - Only the dices that are worth points
+        """
+        counts = Counter(test_input)
+
+        # Straights
+        if len(counts) == 6:
+            return test_input
+
+        # 3 Pairs
+        if len(counts) == 3:
+            if all(value == 2 for value in counts.values()):
+                return test_input
+
+        result = []
+
+        for number, count in counts.items():
+            if count >= 3:
+                result += [number] * count
+            elif number == 1 or number == 5:
+                result += [number] * count
+
+        return result
+
 
 if __name__ == "__main__":
     pass
